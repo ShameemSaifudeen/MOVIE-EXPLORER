@@ -41,17 +41,14 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({ message: 'Invalid password' });
     }
     req.session.userId = user._id
-
-    res.json({ message: 'Login successful' });
+    res.json({ message: 'Login successful', userId: user._id });
 });
 
 router.post('/logout', isAuthenticated, (req, res) => {
-    req.session.destroy(err => {
-        if (err) {
-            return res.status(500).send('An error occurred while logging out');
-        }
+    req.session= null
+   
         res.status(200).send('Logout successful');
-    });
+   
 });
 
 export default router;
