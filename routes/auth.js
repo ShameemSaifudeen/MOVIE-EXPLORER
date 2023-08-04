@@ -45,9 +45,16 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', isAuthenticated, (req, res) => {
-    req.session= null
-   
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).send('Server error');
+        }
+
+        // You might also want to clear the related cookie here
+        res.clearCookie('sid');
+
         res.status(200).send('Logout successful');
+    });
    
 });
 

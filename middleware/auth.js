@@ -1,5 +1,6 @@
 
 function isAuthenticated(req, res, next) {
+    console.log(req.session);
     if (req.session.userId) {
         next(); 
     } else {
@@ -7,9 +8,9 @@ function isAuthenticated(req, res, next) {
     }
 }
 export function redirectIfAuthenticated(req, res, next) {
-    if (req.session) {
-        // res.redirect('/'); 
-        next()
+    if (req.session.userId) {
+        res.redirect('/'); 
+    
     } else {
         next(); 
     }

@@ -10,14 +10,23 @@ import isAuthenticated from './middleware/auth.js';
 import {redirectIfAuthenticated} from './middleware/auth.js';
 import authRoutes from './routes/auth.js';
 import playlistRoutes from './routes/playlist.js';
+import MongoDBStore from 'connect-mongo';
+
+const MongoStore = MongoDBStore.create({
+  mongoUrl: 'mongodb+srv://shameemsaifudeen456:123qweasd@cluster0.ys6mrv6.mongodb.net/?retryWrites=true&w=majority'
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(session({ secret: "key", resave: true, saveUninitialized: true, cookie: {  secure: true, 
-    maxAge: 600000  } }))
+app.use(session({
+    secret: 'key',
+    resave: false,
+    saveUninitialized: false,
+    store:MongoStore
+  }));
 
 connectDB()
 
