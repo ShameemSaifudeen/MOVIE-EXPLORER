@@ -25,7 +25,7 @@ app.use(express.static('public'));
 app.get('/', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages/index.html'));
 });
-app.get('/login',redirectIfAuthenticated, (req, res) => {
+app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages/login.html'));
 });
 app.get('/signup',redirectIfAuthenticated, (req, res) => {
