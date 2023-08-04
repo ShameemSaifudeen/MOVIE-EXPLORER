@@ -8,7 +8,7 @@ function isAuthenticated(req, res, next) {
 }
 export function redirectIfAuthenticated(req, res, next) {
     if (req.session && req.session.userId) {
-        res.redirect('/');  // Redirect to home page if user is already logged in
+        res.redirect('/'); 
     } else {
         next(); 
     }

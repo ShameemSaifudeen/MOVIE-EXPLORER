@@ -1,5 +1,4 @@
 
-
 const movieSearchBox = document.getElementById('movie-search-box');
 const searchList = document.getElementById('search-list');
 const resultGrid = document.getElementById('result-grid');
@@ -202,11 +201,10 @@ $(document).ready(function () {
             });
             return; 
         }
-        const userId = localStorage.getItem('userId');
+
         axios.post('http://localhost:3000/CreatePlaylist', {
             name: playlistName,
-            publicPlaylist: isPublic,
-            userId
+            publicPlaylist: isPublic
         })
             .then(function (response) {
                 console.log(response);
@@ -277,8 +275,8 @@ axios.get('http://localhost:3000/public-playlists')
     .catch(error => {
         console.error(`Error fetching public playlists: ${error.message}`);
     });
-    const userId = localStorage.getItem('userId');
-axios.get(`http://localhost:3000/private-playlists/${userId}`)
+
+axios.get('http://localhost:3000/private-playlists')
     .then(response => {
         appendPlaylistsToContainer(response.data, 'private-playlists');
     })
@@ -290,7 +288,7 @@ async function logout() {
         const response = await axios.post('http://localhost:3000/logout');
 
         if (response.status === 200) {
-            window.location.href = '/';
+            window.location.href = '/login';
         } else {
             console.error('Logout failed:', response);
         }

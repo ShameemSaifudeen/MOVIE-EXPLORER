@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import isAuthenticated from '../middleware/auth.js';
 
 const router = express.Router();
-let userId
+
 router.post('/signup', async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -41,8 +41,8 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({ message: 'Invalid password' });
     }
     req.session.userId = user._id
-    userId = user._id
-    res.json({ message: 'Login successful', userId: user._id });
+
+    res.json({ message: 'Login successful' });
 });
 
 router.post('/logout', isAuthenticated, (req, res) => {
