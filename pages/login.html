@@ -72,7 +72,7 @@
             console.log(response.data);
             if (response.data.message === "Login successful") {
               localStorage.setItem('userId', response.data.userId);
-              window.location.href = "/";
+              window.location.href = "/home";
             } else {
               Swal.fire({
                 icon: "error",

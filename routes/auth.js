@@ -42,7 +42,10 @@ router.post('/login', async (req, res) => {
     }
     req.session.userId = user._id
     req.session.userId = user._id;
-    res.json({ message: 'Login successful', userId: user._id });
+    req.session.save(function(err) {
+        // session is saved
+        res.json({ message: 'Login successful', userId: user._id });
+      })
 });
 
 router.post('/logout', isAuthenticated, (req, res) => {

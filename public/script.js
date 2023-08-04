@@ -295,7 +295,7 @@ async function logout() {
 
         if (response.status === 200) {
             localStorage.removeItem('userId');
-            window.location.href = '/login';
+            window.location.href = '/';
         } else {
             console.error('Logout failed:', response);
         }

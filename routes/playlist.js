@@ -5,7 +5,7 @@ import isAuthenticated from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.post('/CreatePlaylist', isAuthenticated, async (req, res) => {
+router.post('/CreatePlaylist', async (req, res) => {
     const { name, publicPlaylist,userId } = req.body;
     const user = await User.findById(userId);
     if (!user) {
@@ -25,12 +25,13 @@ router.post('/CreatePlaylist', isAuthenticated, async (req, res) => {
     res.status(200).send('Playlist created successfully');
 });
 
-router.get('/public-playlists', isAuthenticated, async (req, res) => {
+router.get('/public-playlists', async (req, res) => {
     const playlists = await PublicPlaylist.find();
+    console.log(playlists,":::::::::::::::::::::::");
     res.json(playlists);
 });
 
-router.get('/private-playlists', isAuthenticated, async (req, res) => {
+router.get('/private-playlists', async (req, res) => {
     const userId = req?.query?.userId;
     const user = await User.findById(userId);
     if (user) {
@@ -40,7 +41,7 @@ router.get('/private-playlists', isAuthenticated, async (req, res) => {
     }
 });
 
-router.post('/public-playlists/:name', isAuthenticated, async (req, res) => {
+router.post('/public-playlists/:name', async (req, res) => {
     const { movieId, title, poster } = req.body;
     const movie = { movieId, title, poster };
 
@@ -53,7 +54,7 @@ router.post('/public-playlists/:name', isAuthenticated, async (req, res) => {
     res.json({ message: 'Movie added successfully' });
 });
 
-router.post('/private-playlists/:playlistName', isAuthenticated, async (req, res) => {
+router.post('/private-playlists/:playlistName', async (req, res) => {
     const { movieId, title, poster } = req.body;
     const user = await User.findById(req.session.userId);
 
