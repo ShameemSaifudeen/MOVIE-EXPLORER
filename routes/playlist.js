@@ -6,10 +6,8 @@ import isAuthenticated from '../middleware/auth.js';
 const router = express.Router();
 
 router.post('/CreatePlaylist', async (req, res) => {
-    console.log(req.session);
-
-    const { name, publicPlaylist } = req.body;
-    const user = await User.findById(req.session.userId);
+    const { name, publicPlaylist,userId } = req.body;
+    const user = await User.findById(userId);
     if (!user) {
         res.status(404).send('User not found');
         return;
@@ -34,7 +32,7 @@ router.get('/public-playlists', async (req, res) => {
     res.json(playlists);
 });
 
-router.get('/private-playlists', async (req, res) => {
+router.get('/private-playlists/:id', async (req, res) => {
     console.log(req.session);
 
     const user = await User.findById(req.session.userId);

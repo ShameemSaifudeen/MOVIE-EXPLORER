@@ -202,10 +202,11 @@ $(document).ready(function () {
             });
             return; 
         }
-
+        const userId = localStorage.getItem('userId');
         axios.post('http://localhost:3000/CreatePlaylist', {
             name: playlistName,
-            publicPlaylist: isPublic
+            publicPlaylist: isPublic,
+            userId
         })
             .then(function (response) {
                 console.log(response);
@@ -276,8 +277,8 @@ axios.get('http://localhost:3000/public-playlists')
     .catch(error => {
         console.error(`Error fetching public playlists: ${error.message}`);
     });
-
-axios.get('http://localhost:3000/private-playlists')
+    const userId = localStorage.getItem('userId');
+axios.get(`http://localhost:3000/private-playlists/${userId}`)
     .then(response => {
         appendPlaylistsToContainer(response.data, 'private-playlists');
     })
