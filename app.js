@@ -22,10 +22,10 @@ connectDB()
 
 app.use(express.static('public'));
 
-app.get('/', isAuthenticated, (req, res) => {
+app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages/index.html'));
 });
-app.get('/login', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages/login.html'));
 });
 app.get('/signup',redirectIfAuthenticated, (req, res) => {
