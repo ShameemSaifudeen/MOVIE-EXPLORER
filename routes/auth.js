@@ -41,6 +41,7 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({ message: 'Invalid password' });
     }
     req.session.userId = user._id
+    req.session.userId = user._id;
     res.json({ message: 'Login successful', userId: user._id });
 });
 

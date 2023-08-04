@@ -25,7 +25,12 @@ app.use(session({
     secret: 'key',
     resave: false,
     saveUninitialized: false,
-    store:MongoStore
+    store:MongoStore,
+    cookie: {
+        secure: true, // this may be required if you're dealing with https cookies
+        httpOnly: true, // ensures the cookie is sent over HTTP(S) only
+        maxAge: 1000 * 60 * 60 * 24 * 7 // sets cookie expiry length (optional)
+    }
   }));
 
 connectDB()
