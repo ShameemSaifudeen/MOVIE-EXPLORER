@@ -289,7 +289,7 @@ async function logout() {
         const response = await axios.post('http://localhost:3000/logout');
 
         if (response.status === 200) {
-            window.location.href = '/login';
+            window.location.href = '/';
         } else {
             console.error('Logout failed:', response);
         }
