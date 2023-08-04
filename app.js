@@ -38,6 +38,7 @@ connectDB()
 app.use(express.static('public'));
 
 app.get('/home', (req, res) => {
+    console.log(req.session);
     res.sendFile(path.join(__dirname, 'pages/index.html'));
 });
 app.get('/',redirectIfAuthenticated, (req, res) => {
