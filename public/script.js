@@ -143,7 +143,9 @@ function displayMovieDetails(details) {
             if (playlistType === 'public') {
                 response = await axios.post(`http://localhost:3000/public-playlists/${playlistId}`, { movieId, title, poster });
             } else {
-                response = await axios.post(`http://localhost:3000/private-playlists/${playlistId}`, { movieId, title, poster });
+                const userId = localStorage.getItem('userId');
+
+                response = await axios.post(`http://localhost:3000/private-playlists/${playlistId}`, { movieId, title, poster,userId });
             }
             if (response.status === 200) {
                 Swal.fire({
@@ -178,9 +180,9 @@ async function fetchPrivatePlaylists() {
     try {
         const response = await axios.get('http://localhost:3000/private-playlists', {
             params: {
-              userId: userId
+                userId: userId
             }
-          });
+        });
         return response.data;
     } catch (error) {
         console.error(`Error fetching private playlists: ${error.message}`);
@@ -204,7 +206,7 @@ $(document).ready(function () {
                 title: 'Oops...',
                 text: 'Invalid input. Playlist name cannot be empty or start with a space.',
             });
-            return; 
+            return;
         }
         const userId = localStorage.getItem('userId');
         axios.post('http://localhost:3000/CreatePlaylist', {
@@ -281,13 +283,13 @@ axios.get('http://localhost:3000/public-playlists')
     .catch(error => {
         console.error(`Error fetching public playlists: ${error.message}`);
     });
-    const userId = localStorage.getItem('userId');
+const userId = localStorage.getItem('userId');
 
 axios.get('http://localhost:3000/private-playlists', {
     params: {
-      userId: userId
+        userId: userId
     }
-  })
+})
     .then(response => {
         appendPlaylistsToContainer(response.data, 'private-playlists');
     })

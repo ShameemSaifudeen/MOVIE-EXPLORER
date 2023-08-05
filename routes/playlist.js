@@ -55,8 +55,8 @@ router.post('/public-playlists/:name', async (req, res) => {
 });
 
 router.post('/private-playlists/:playlistName', async (req, res) => {
-    const { movieId, title, poster } = req.body;
-    const user = await User.findById(req.session.userId);
+    const { movieId, title, poster,userId } = req.body;
+    const user = await User.findById(userId);
 
     if (!user) return res.status(404).json({ error: 'User not found' });
 
