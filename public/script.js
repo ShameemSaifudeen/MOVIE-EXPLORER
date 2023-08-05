@@ -174,8 +174,13 @@ async function fetchPublicPlaylists() {
 }
 
 async function fetchPrivatePlaylists() {
+    const userId = localStorage.getItem('userId');
     try {
-        const response = await axios.get('http://localhost:3000/private-playlists');
+        const response = await axios.get('http://localhost:3000/private-playlists', {
+            params: {
+              userId: userId
+            }
+          });
         return response.data;
     } catch (error) {
         console.error(`Error fetching private playlists: ${error.message}`);
